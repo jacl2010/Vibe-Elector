@@ -20,7 +20,7 @@ The Firefox Manifest V3 output is written to `.output/firefox-mv3/`. The build i
 
 ## Lint note
 
-`web-ext lint` reports `UNSAFE_VAR_ASSIGNMENT` for the selector UI's Shadow DOM template. The template interpolates only extension-owned CSS constants and strings loaded from packaged Firefox locale files; page content, selected element data, and clipboard data never enter `innerHTML`. Dynamic labels and toast messages are assigned with `textContent`.
+The selector UI is mounted with DOM APIs. Dynamic labels and toast messages are assigned with `textContent`, so page content, selected element data, and clipboard data never enter HTML parsing.
 
 ## Reviewer smoke test
 
