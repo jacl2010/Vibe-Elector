@@ -1,0 +1,25 @@
+{
+  "name": "vibe-elector",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.15.1",
+  "engines": {
+    "node": "22.17.1",
+    "pnpm": "10.15.1"
+  },
+  "scripts": {
+    "dev:firefox": "wxt -b firefox",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "build:firefox": "wxt build -b firefox",
+    "lint": "pnpm typecheck && web-ext lint --source-dir .output/firefox-mv3"
+  },
+  "devDependencies": {
+    "@types/node": "22.15.34",
+    "happy-dom": "17.6.3",
+    "typescript": "5.8.3",
+    "vitest": "3.2.4",
+    "web-ext": "10.6.0",
+    "wxt": "0.20.9"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "extensionName": { "message": "Vibe Elector" },
+  "extensionDescription": { "message": "选择网页元素，并复制适合编码助手使用的精简定位信息。" },
+  "toggleCommand": { "message": "开关 Vibe Elector" },
+  "copyCommand": { "message": "复制所选元素" },
+  "statusSelecting": { "message": "正在选择页面元素" },
+  "copyToChat": { "message": "复制到对话" },
+  "copySuccess": { "message": "复制成功" },
+  "copyFailed": { "message": "复制失败，请重试" },
+  "selectFirst": { "message": "请先点击元素" },
+  "staleElement": { "message": "元素已失效，请重新选择" },
+  "unsupportedPage": { "message": "此页面不支持元素选择" },
+  "closeSelector": { "message": "关闭元素选择器" }
+}

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="Vibe Elector">
+  <rect width="96" height="96" rx="24" fill="#7C3AED"/>
+  <path d="M28 28h16v6H34v10H28zm40 0v16h-6V34H52v-6zm-40 40h6V58h10v-6H28zm34 0H52v-6h10V52h6z" fill="#fff"/>
+  <circle cx="48" cy="48" r="8" fill="#DDD6FE"/>
+</svg>

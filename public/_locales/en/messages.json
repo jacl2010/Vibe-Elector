@@ -1,0 +1,14 @@
+{
+  "extensionName": { "message": "Vibe Elector" },
+  "extensionDescription": { "message": "Select page elements and copy a compact locator for coding agents." },
+  "toggleCommand": { "message": "Toggle Vibe Elector" },
+  "copyCommand": { "message": "Copy selected element" },
+  "statusSelecting": { "message": "Selecting page elements" },
+  "copyToChat": { "message": "Copy to chat" },
+  "copySuccess": { "message": "Copied" },
+  "copyFailed": { "message": "Copy failed. Try again" },
+  "selectFirst": { "message": "Click an element first" },
+  "staleElement": { "message": "Element changed. Select it again" },
+  "unsupportedPage": { "message": "Element selection is unavailable on this page" },
+  "closeSelector": { "message": "Close element selector" }
+}
