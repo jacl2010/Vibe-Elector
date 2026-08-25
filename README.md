@@ -6,6 +6,10 @@
 
 A Firefox element selector built for Coding Agents. Click any page element and copy a compact, stable context packet directly into an AI coding conversation—so your agent knows exactly which button, panel, or field you mean.
 
+**[Install Vibe Elector from Firefox Add-ons](https://addons.mozilla.org/zh-CN/firefox/addon/vibe-elector/)**
+
+> **Browser support:** Firefox is available now. Extensions for other browsers are in development.
+
 ## Why Vibe Elector
 
 - **Built for Coding Agents:** Copies the URL, element summary, selector, DOM path, dimensions, and a safe HTML signature instead of dumping the entire DOM.
