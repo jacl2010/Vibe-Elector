@@ -23,8 +23,6 @@ A Firefox element selector built for Coding Agents. Click any page element and c
 
 Click the Vibe Elector toolbar icon or press `Alt + Shift + E`. Move the pointer to preview elements, then click to lock the target.
 
-![Select and lock a page element](docs/images/vibe-elector-select-zh-CN.png)
-
 ### 2. Copy the selection packet
 
 Click **Copy to chat** in the floating panel or press `Alt + Shift + C`. After a successful copy, the target unlocks and selection mode stays active.
