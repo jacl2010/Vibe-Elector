@@ -21,11 +21,11 @@ A Firefox element selector built for Coding Agents. Click any page element and c
 
 ### 1. Select and lock an element
 
-Click the Vibe Elector toolbar icon or press `Alt + Shift + E`. Move the pointer to preview elements, then click to lock the target.
+Click the Vibe Elector toolbar icon or press `Option/Alt + Shift + E`. Move the pointer to preview elements, then click to lock the target.
 
 ### 2. Copy the selection packet
 
-Click **Copy to chat** in the floating panel or press `Alt + Shift + C`. After a successful copy, the target unlocks and selection mode stays active.
+Click **Copy to chat** in the floating panel or press `Option/Alt + Shift + C`. After a successful copy, the target unlocks and selection mode stays active.
 
 ### 3. Paste it into a Coding Agent
 
@@ -46,7 +46,7 @@ Rect: x=122, y=542, width=342, height=74
 HTML: <button class="primary">Get Started</button>
 ```
 
-Click the toolbar icon, press `Alt + Shift + E` again, or use the panel close button to exit selection mode.
+Click the toolbar icon, press `Option/Alt + Shift + E` again, or use the panel close button to exit selection mode.
 
 ## Build and Install
 
@@ -76,8 +76,8 @@ pnpm exec web-ext run --source-dir .output/firefox-mv3 --no-reload
 
 | Action | Shortcut |
 | --- | --- |
-| Toggle selection mode | `Alt + Shift + E` |
-| Copy the locked selection | `Alt + Shift + C` |
+| Toggle selection mode | `Option/Alt + Shift + E` |
+| Copy the locked selection | `Option/Alt + Shift + C` |
 
 If a shortcut conflicts with another extension, rebind it from Firefox's extension shortcut settings in `about:addons`.
 

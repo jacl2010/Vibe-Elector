@@ -21,11 +21,11 @@
 
 ### 1. 开启选择模式并锁定元素
 
-点击 Firefox 工具栏中的 Vibe Elector 图标，或按 `Alt + Shift + E`。移动鼠标预览元素，单击后锁定目标。
+点击 Firefox 工具栏中的 Vibe Elector 图标，或按 Option/`Alt + Shift + E`。移动鼠标预览元素，单击后锁定目标。
 
 ### 2. 复制定位包
 
-点击浮窗中的“复制到对话”，或按 `Alt + Shift + C`。复制成功后目标会自动解锁，选择模式保持开启。
+点击浮窗中的“复制到对话”，或按 `Option/Alt + Shift + C`。复制成功后目标会自动解锁，选择模式保持开启。
 
 ### 3. 粘贴给 Coding Agent
 
@@ -76,8 +76,8 @@ pnpm exec web-ext run --source-dir .output/firefox-mv3 --no-reload
 
 | 操作 | 快捷键 |
 | --- | --- |
-| 开启或退出选择模式 | `Alt + Shift + E` |
-| 复制已锁定元素 | `Alt + Shift + C` |
+| 开启或退出选择模式 | `Option/Alt + Shift + E` |
+| 复制已锁定元素 | `Option/Alt + Shift + C` |
 
 快捷键冲突时，可在 `about:addons` 的扩展快捷键设置中重新绑定。
 
