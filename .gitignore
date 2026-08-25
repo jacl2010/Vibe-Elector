@@ -30,8 +30,13 @@ node_modules/
 .output/
 .pnpm-home/
 
-# Spec-kit and local agent metadata are working artifacts, not project deliverables.
+# README images are public project assets and may be committed.
+!/docs/images/
+!/docs/images/**
+
+# Specs and local agent metadata are working artifacts, not project deliverables.
 /.agents/
+/.superpowers/
 /.specify/
 /specs/
 /docs/specs/
