@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Vibe Elector is a Firefox element selector built for coding agents.">
+  <title>Vibe Elector — Point once. Explain exactly.</title>
+  <style>
+    :root { --ink:#171925; --muted:#686b7d; --line:#e7e6ed; --violet:#7657ef; --cream:#f7f7f4; --green:#256a50; }
+    * { box-sizing:border-box; }
+    html { overflow-y:scroll; scroll-behavior:smooth; scrollbar-gutter:stable; }
+    body { margin:0; overflow-x:hidden; background:#fff; color:var(--ink); font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; letter-spacing:-.025em; }
+    a { color:inherit; text-decoration:none; } button { font:inherit; }
+    .page { padding:0 22px; } .nav,.hero,.content,.footer { max-width:1380px; margin:auto; }
+    .nav { display:flex; align-items:center; justify-content:space-between; height:88px; }
+    .brand { display:flex; align-items:center; gap:10px; font-size:15px; font-weight:800; letter-spacing:-.05em; }
+    .brand-mark { display:block; width:29px; height:29px; overflow:hidden; border-radius:9px; box-shadow:0 5px 11px #c7bef4; }
+    .brand-mark img { display:block; width:100%; height:100%; }
+    .nav-right { display:flex; align-items:center; gap:12px; } .nav-link { color:#525568; font-size:13px; font-weight:700; }
+    .lang { display:flex; gap:2px; padding:3px; border:1px solid var(--line); border-radius:99px; background:#fafafa; }
+    .lang button { padding:6px 9px; border:0; border-radius:99px; background:transparent; color:#8a8d9c; font-size:11px; font-weight:750; cursor:pointer; }
+    .lang button.active { background:#171925; color:#fff; }
+    .hero { position:relative; min-height:660px; overflow:hidden; padding:50px 6.7% 38px; border-radius:30px; background:linear-gradient(120deg,#f8f7f3 3%,#faf9f6 51%,#f2efff); }
+    .hero::before { position:absolute; top:-360px; right:-270px; width:790px; height:790px; border-radius:50%; content:""; background:radial-gradient(circle at 42% 42%,rgba(139,108,255,.28),rgba(139,108,255,.04) 40%,transparent 67%); }
+    .hero::after { position:absolute; bottom:-250px; left:12%; width:550px; height:300px; content:""; background:radial-gradient(ellipse,rgba(97,157,255,.13),transparent 68%); filter:blur(8px); }
+    .hero-copy { position:relative; z-index:2; max-width:730px; }
+    .kicker { display:inline-flex; align-items:center; gap:8px; color:#6b52df; font-size:12px; font-weight:780; letter-spacing:.1em; text-transform:uppercase; }
+    .kicker i { width:7px; height:7px; border-radius:99px; background:#8060ee; box-shadow:0 0 0 5px rgba(128,96,238,.12); }
+    h1 { max-width:680px; margin:22px 0 18px; font-size:clamp(46px,5.15vw,74px); line-height:.94; letter-spacing:-.075em; }
+    h1 .violet { color:var(--violet); } .lede { max-width:485px; margin:0; color:#656879; font-size:18px; line-height:1.52; }
+    .actions { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-top:29px; }
+    .install { display:inline-flex; align-items:center; gap:10px; padding:15px 20px 15px 17px; border-radius:99px; background:#171925; color:#fff; font-size:14px; font-weight:760; box-shadow:0 10px 25px rgba(26,27,39,.15); transition:transform .2s ease,box-shadow .2s ease; }
+    .install:hover { transform:translateY(-2px); box-shadow:0 14px 30px rgba(26,27,39,.23); }
+    .firefox { display:flex; width:23px; height:23px; align-items:center; justify-content:center; } .firefox img { width:100%; height:100%; object-fit:contain; }
+    .ghost { padding:13px 16px; border:1px solid #d7d6df; border-radius:99px; color:#4d5060; font-size:14px; font-weight:750; }
+    .availability { margin:14px 0 0 4px; color:#8b8d9a; font-size:12px; } .availability b { color:#4a4d60; }
+    .demo-stage { position:absolute; z-index:1; right:-22px; bottom:-54px; width:min(61vw,820px); height:506px; }
+    .browser { position:absolute; right:0; bottom:0; width:82%; overflow:hidden; border:1px solid #dbdce4; border-radius:22px 0 0 0; background:#fff; box-shadow:0 28px 80px rgba(56,57,73,.2); transform:rotate(-2deg); }
+    .browser-top { position:relative; display:flex; align-items:center; height:44px; padding:0 16px; border-bottom:1px solid #ececf1; background:#fbfbfc; }
+    .traffic { display:flex; align-items:center; gap:6px; } .traffic i { display:block; width:9px; height:9px; border-radius:50%; } .traffic i:nth-child(1){background:#ff716d}.traffic i:nth-child(2){background:#ffbd4b}.traffic i:nth-child(3){background:#43c978}
+    .address { display:flex; align-items:center; gap:7px; width:54%; height:22px; margin-left:20px; padding:0 10px; border-radius:99px; background:#f0f0f4; color:#9296a6; font-size:8px; font-weight:650; }
+    .address i { width:7px; height:7px; border:1.4px solid #a5a8b6; border-radius:50%; } .address i::after { display:block; width:2px; height:3px; margin:5px 0 0 2px; content:""; border-left:1px solid #a5a8b6; }
+    .toolbar { position:absolute; top:50%; right:16px; display:grid; grid-template-columns:18px 18px; align-items:center; column-gap:10px; width:46px; transform:translateY(-50%); color:#778095; font-size:17px; line-height:1; }
+    .toolbar span { display:block; width:18px; text-align:center; } .toolbar .more { font-size:19px; transform:translateY(-1px); }
+    .shot-viewport { position:relative; height:370px; overflow:hidden; background:#f9f9fb; } .shot { display:block; width:111%; max-width:none; height:auto; transform:translate(-5.2%,-15.8%); }
+    .copy-card { position:absolute; right:8%; bottom:14%; z-index:3; width:206px; padding:16px; border:1px solid rgba(255,255,255,.86); border-radius:15px; background:rgba(255,255,255,.88); box-shadow:0 20px 40px rgba(49,49,69,.18); backdrop-filter:blur(16px); animation:card-float 4.5s ease-in-out infinite; }
+    .copy-icon { display:grid; width:25px; height:25px; place-items:center; border-radius:8px; background:#f0eaff; color:#7049e8; font-size:17px; font-weight:800; }
+    .copy-card b { display:block; margin-top:11px; color:#5f3dd5; font-size:14px; letter-spacing:-.045em; } .copy-card p { margin:5px 0 0; color:#676a7c; font-size:10px; line-height:1.42; }
+    .copied { display:flex; align-items:center; gap:5px; margin-top:10px; padding:7px; border-radius:7px; background:#ecfaf0; color:#24724e; font-size:9px; font-weight:750; } .copied i { width:6px; height:6px; border-radius:50%; background:#2eb26e; }
+    .scroll-note { position:absolute; z-index:2; bottom:32px; left:6.7%; display:flex; align-items:center; gap:8px; color:#777a8b; font-size:11px; font-weight:700; } .scroll-note i { width:24px; height:1px; background:#a0a1ad; }
+    .line { max-width:1380px; height:1px; margin:76px auto 0; background:var(--line); } .content { padding:72px 6.7% 0; }
+    .statement { display:grid; grid-template-columns:1.1fr .9fr; gap:80px; align-items:end; } .statement h2,.privacy-copy h2 { max-width:620px; margin:0; font-size:clamp(32px,3.6vw,51px); line-height:1.04; letter-spacing:-.06em; }
+    .statement p { max-width:365px; margin:0 0 5px; color:var(--muted); font-size:16px; line-height:1.58; }
+    .features { display:grid; grid-template-columns:repeat(3,1fr); gap:15px; margin-top:36px; } .feature { min-height:182px; padding:20px; border:1px solid var(--line); border-radius:18px; background:#fbfbfb; }
+    .feature-icon { display:grid; width:36px; height:36px; place-items:center; border-radius:11px; background:#f0ebff; color:#714cf2; font-size:19px; } .feature h3 { margin:24px 0 7px; font-size:16px; letter-spacing:-.04em; } .feature p { margin:0; color:#707382; font-size:13px; line-height:1.55; }
+    .privacy { display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-top:88px; overflow:hidden; border-radius:23px; background:#12141f; color:#f4f2ff; } .privacy-copy { padding:59px; } .privacy-copy .kicker { color:#b9a8ff; } .privacy-copy h2 { margin-top:18px; }
+    .privacy-copy p { max-width:440px; margin:17px 0 25px; color:#b5b7c7; font-size:15px; line-height:1.6; } .privacy-link { color:#c6b6ff; font-size:13px; font-weight:750; text-decoration:underline; text-underline-offset:4px; }
+    .privacy-visual { position:relative; min-height:310px; background:radial-gradient(circle at 60% 44%,#473589,transparent 48%),#151726; } .privacy-visual::before { position:absolute; inset:45px; content:""; border:1px solid rgba(214,207,255,.16); border-radius:25px; transform:rotate(11deg); }
+    .local-card { position:absolute; top:73px; left:21%; width:270px; padding:21px; border:1px solid rgba(216,206,255,.21); border-radius:16px; background:rgba(37,37,57,.75); box-shadow:0 25px 55px rgba(0,0,0,.25); backdrop-filter:blur(13px); } .lock { display:grid; width:28px; height:28px; place-items:center; border-radius:9px; background:#2c704f; font-size:14px; } .local-card b { display:block; margin-top:16px; font-size:17px; letter-spacing:-.045em; } .local-card p { margin:8px 0 0; color:#b9b9ca; font-size:11px; line-height:1.48; }
+    .footer { display:flex; align-items:center; justify-content:space-between; padding:31px 6.7% 41px; color:#858796; font-size:12px; } .footer a { color:#565968; font-weight:750; }
+    [data-lang='zh'] .only-en,[data-lang='en'] .only-zh { display:none; }
+    @keyframes card-float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-12px); } }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; scroll-behavior:auto!important; } }
+    @media (max-width:900px) { .hero { min-height:720px; } .demo-stage { right:-9%; width:84vw; } .statement,.privacy { grid-template-columns:1fr; gap:27px; } .features { grid-template-columns:1fr; } .privacy-visual { min-height:250px; } }
+    @media (max-width:590px) { .page { padding:0 10px; } .nav { height:70px; } .nav-link { display:none; } .hero { min-height:700px; padding:43px 24px 34px; border-radius:20px; } h1 { font-size:46px; } .lede { font-size:16px; } .demo-stage { right:-34%; bottom:-6px; width:116vw; height:340px; } .copy-card { width:157px; padding:12px; } .browser { width:78%; } .content { padding:60px 15px 0; } .privacy { margin-top:68px; } .privacy-copy { padding:37px 27px; } .local-card { top:50px; left:10%; } .footer { padding:28px 15px; } }
+  </style>
+</head>
+<body data-lang="en">
+  <div class="page">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="#top"><span class="brand-mark"><img src="public/icon/vibe-elector-96.svg" alt="Vibe Elector"></span>Vibe Elector</a>
+      <div class="nav-right"><a class="nav-link" href="https://github.com/jacl2010/element-selector" target="_blank" rel="noreferrer">GitHub ↗</a><div class="lang" aria-label="Language"><button class="active" type="button" onclick="setLanguage('en',this)">EN</button><button type="button" onclick="setLanguage('zh',this)">中文</button></div></div>
+    </nav>
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="kicker"><i></i><span class="only-en">Built for coding agents</span><span class="only-zh">为 Coding Agent 构建</span></div>
+          <h1 class="only-en">You know what needs changing.<br><span class="violet">Your agent should too.</span></h1>
+          <h1 class="only-zh">你知道该改哪里。<br><span class="violet">Agent 也该知道。</span></h1>
+          <p class="lede only-en">Select any interface element and copy the exact context your coding agent needs — not an entire DOM dump.</p><p class="lede only-zh">选择任意界面元素，复制 Coding Agent 需要的准确上下文，而不是整页 DOM。</p>
+          <div class="actions"><a class="install" href="https://addons.mozilla.org/zh-CN/firefox/addon/vibe-elector/" target="_blank" rel="noreferrer"><span class="firefox"><img src="https://hg-edge.mozilla.org/mozilla-central/raw-file/tip/browser/branding/official/default256.png" alt=""></span><span class="only-en">Add to Firefox</span><span class="only-zh">添加到 Firefox</span><span>↗</span></a><a class="ghost" href="https://github.com/jacl2010/element-selector" target="_blank" rel="noreferrer"><span class="only-en">View on GitHub</span><span class="only-zh">在 GitHub 查看</span></a></div>
+          <p class="availability only-en"><b>Firefox is available now.</b> Other browsers are in development.</p><p class="availability only-zh"><b>现已支持 Firefox。</b>其他浏览器扩展正在开发。</p>
+        </div>
+        <div class="demo-stage" aria-label="Vibe Elector product demonstration"><div class="browser"><div class="browser-top"><span class="traffic"><i></i><i></i><i></i></span><span class="address"><i></i>example.local/dashboard</span><span class="toolbar"><span>☆</span><span class="more">⋮</span></span></div><div class="shot-viewport"><img class="shot" src="docs/images/vibe-elector-select-zh-CN.png" alt="Vibe Elector selecting a page element"></div></div><div class="copy-card"><span class="copy-icon">✦</span><b class="only-en">Context copied</b><b class="only-zh">定位包已复制</b><p class="only-en">Keep selecting. Paste it straight into your coding agent.</p><p class="only-zh">继续选择，直接粘贴给你的 Coding Agent。</p><span class="copied"><i></i><span class="only-en">Local clipboard only</span><span class="only-zh">仅写入本地剪贴板</span></span></div></div>
+        <div class="scroll-note"><i></i><span class="only-en">SELECT · COPY · BUILD</span><span class="only-zh">选择 · 复制 · 构建</span></div>
+      </section>
+      <div class="line"></div>
+      <section class="content">
+        <div class="statement"><h2 class="only-en">A clear signal between your UI and your agent.</h2><h2 class="only-zh">在界面与 Agent 之间，传递清晰的信号。</h2><p class="only-en">Vibe Elector packages the element, its location and the useful context so you can stop describing a button with words.</p><p class="only-zh">Vibe Elector 把元素、位置和必要上下文打包，让你不再用语言反复描述“就是这个按钮”。</p></div>
+        <div class="features">
+          <article class="feature"><span class="feature-icon">⌖</span><h3 class="only-en">Choose the exact element</h3><h3 class="only-zh">精确选择目标元素</h3><p class="only-en">Click any visible UI target. Stable selectors and an element summary are prepared for you.</p><p class="only-zh">点击任意可见 UI 目标，自动准备稳定的 Selector 和元素摘要。</p></article>
+          <article class="feature"><span class="feature-icon">✦</span><h3 class="only-en">Give agents usable context</h3><h3 class="only-zh">给 Agent 可用的上下文</h3><p class="only-en">URL, selector, DOM path, dimensions and a safe HTML signature — compact, not noisy.</p><p class="only-zh">URL、Selector、DOM Path、尺寸和安全 HTML 签名，紧凑而不冗余。</p></article>
+          <article class="feature"><span class="feature-icon">⌁</span><h3 class="only-en">Stay in the flow</h3><h3 class="only-zh">保持连续工作流</h3><p class="only-en">After copying, the target unlocks while selection mode stays on for the next change.</p><p class="only-zh">复制后自动解锁目标，选择模式保持开启，继续定位下一个改动。</p></article>
+        </div>
+        <section class="privacy">
+          <div class="privacy-copy"><div class="kicker"><i></i><span class="only-en">Local by default</span><span class="only-zh">默认本地优先</span></div><h2 class="only-en">Your page data stays with you.</h2><h2 class="only-zh">你的页面数据，始终留在本地。</h2><p class="only-en">No network requests. No telemetry. No selection history. Vibe Elector writes the context packet only to your local clipboard after you ask it to.</p><p class="only-zh">不联网，不遥测，不保存选择历史。只有在你主动复制时，Vibe Elector 才将定位包写入本地剪贴板。</p><a class="privacy-link" href="https://github.com/jacl2010/element-selector/blob/main/PRIVACY.md" target="_blank" rel="noreferrer"><span class="only-en">Read the privacy policy ↗</span><span class="only-zh">阅读隐私政策 ↗</span></a></div>
+          <div class="privacy-visual"><div class="local-card"><span class="lock">▣</span><b class="only-en">Your browser. Your clipboard.</b><b class="only-zh">你的浏览器，你的剪贴板。</b><p class="only-en">The extension never sends page content anywhere.</p><p class="only-zh">扩展不会将页面内容发送到任何地方。</p></div></div>
+        </section>
+      </section>
+    </main>
+    <footer class="footer"><span>© Vibe Elector</span><a href="https://github.com/jacl2010/element-selector" target="_blank" rel="noreferrer">GitHub ↗</a></footer>
+  </div>
+  <script>
+    function setLanguage(language, button) {
+      document.body.dataset.lang = language;
+      document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
+      document.querySelectorAll('.lang button').forEach((item) => item.classList.toggle('active', item === button));
+    }
+  </script>
+</body>
+</html>
