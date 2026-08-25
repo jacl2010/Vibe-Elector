@@ -23,8 +23,6 @@
 
 点击 Firefox 工具栏中的 Vibe Elector 图标，或按 `Alt + Shift + E`。移动鼠标预览元素，单击后锁定目标。
 
-![开启选择模式并锁定元素](docs/images/vibe-elector-select-zh-CN.png)
-
 ### 2. 复制定位包
 
 点击浮窗中的“复制到对话”，或按 `Alt + Shift + C`。复制成功后目标会自动解锁，选择模式保持开启。
