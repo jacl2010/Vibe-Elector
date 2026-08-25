@@ -1,5 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Vibe Elector">
-  <rect width="48" height="48" rx="12" fill="#7C3AED"/>
-  <path d="M14 14h8v3h-5v5h-3zm20 0v8h-3v-5h-5v-3zm-20 20h3v-5h5v-3h-8zm17 0h-5v-3h5v-5h3v8z" fill="#fff"/>
-  <circle cx="24" cy="24" r="4" fill="#DDD6FE"/>
+  <rect width="48" height="48" rx="11" fill="#6D28D9"/>
+  <path
+    d="M12 18v-6h6m12 0h6v6m0 12v6h-6m-12 0h-6v-6"
+    fill="none"
+    stroke="#FFFFFF"
+    stroke-width="3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <rect x="17" y="17" width="14" height="11" rx="2.5" fill="#C4B5FD"/>
+  <path
+    d="M22 22.5v15.5l4-3.8 3.1 6.45 4-1.9-3.15-6.35H36z"
+    fill="#FFFFFF"
+    stroke="#5B21B6"
+    stroke-width="1.25"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
 </svg>
