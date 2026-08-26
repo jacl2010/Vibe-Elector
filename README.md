@@ -55,8 +55,6 @@ Click the toolbar icon, press `Option/Alt + Shift + E` again, or use the panel c
 | Toggle selection mode | `Option/Alt + Shift + E` |
 | Copy the locked selection | `Option/Alt + Shift + C` |
 
-If a shortcut conflicts with another extension, rebind it from Firefox's extension shortcut settings in `about:addons`.
-
 ## Support and Limitations
 
 - Supports HTTP, HTTPS, localhost, and local `file://` pages after the extension is reloaded with file access declared.
