@@ -2,7 +2,7 @@ import { defineConfig } from "wxt";
 
 export default defineConfig({
   manifestVersion: 3,
-  manifest: {
+  manifest: ({ browser }) => ({
     default_locale: "en",
     name: "__MSG_extensionName__",
     description: "__MSG_extensionDescription__",
@@ -11,13 +11,17 @@ export default defineConfig({
     action: {
       default_title: "__MSG_extensionName__",
       default_icon: {
-        48: "icon/vibe-elector-48.svg",
-        96: "icon/vibe-elector-96.svg",
+        16: "icon/vibe-elector-16.png",
+        32: "icon/vibe-elector-32.png",
+        48: "icon/vibe-elector-48.png",
+        128: "icon/vibe-elector-128.png",
       },
     },
     icons: {
-      48: "icon/vibe-elector-48.svg",
-      96: "icon/vibe-elector-96.svg",
+      16: "icon/vibe-elector-16.png",
+      32: "icon/vibe-elector-32.png",
+      48: "icon/vibe-elector-48.png",
+      128: "icon/vibe-elector-128.png",
     },
     commands: {
       _execute_action: {
@@ -29,11 +33,15 @@ export default defineConfig({
         description: "__MSG_copyCommand__",
       },
     },
-    browser_specific_settings: {
-      gecko: {
-        id: "vibe-elector@element-selector.local",
-        data_collection_permissions: { required: ["none"] },
-      } as never,
-    },
-  },
+    ...(browser === "firefox"
+      ? {
+          browser_specific_settings: {
+            gecko: {
+              id: "vibe-elector@element-selector.local",
+              data_collection_permissions: { required: ["none"] },
+            } as never,
+          },
+        }
+      : {}),
+  }),
 });

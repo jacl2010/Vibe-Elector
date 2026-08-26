@@ -1,6 +1,6 @@
 {
   "name": "vibe-elector",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "packageManager": "pnpm@10.15.1",
   "engines": {
@@ -9,10 +9,13 @@
   },
   "scripts": {
     "dev:firefox": "wxt -b firefox",
+    "dev:chrome": "wxt -b chrome",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "build:firefox": "wxt build -b firefox",
-    "lint": "pnpm typecheck && web-ext lint --source-dir .output/firefox-mv3"
+    "build:chrome": "wxt build -b chrome",
+    "lint": "pnpm typecheck && web-ext lint --source-dir .output/firefox-mv3",
+    "lint:chrome": "pnpm typecheck && pnpm build:chrome"
   },
   "devDependencies": {
     "@types/node": "22.15.34",
