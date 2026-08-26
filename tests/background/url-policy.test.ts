@@ -10,7 +10,14 @@ describe("URL access policy", () => {
     expect(getUrlAccess("file:///tmp/demo.html")).toBe("file");
   });
 
-  it.each(["about:config", "https://addons.mozilla.org/en-US/firefox/", "moz-extension://abc/page.html", undefined])("rejects %s", (url) => {
+  it.each([
+    "about:config",
+    "chrome://extensions/",
+    "https://addons.mozilla.org/en-US/firefox/",
+    "https://chromewebstore.google.com/",
+    "moz-extension://abc/page.html",
+    undefined,
+  ])("rejects %s", (url) => {
     expect(getUrlAccess(url)).toBe("unsupported");
   });
 });

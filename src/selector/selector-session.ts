@@ -1,4 +1,5 @@
 import { buildSelectionPacket, formatSelectionPacket } from "./selection-packet";
+import { getMessage } from "./messages";
 import { mountSelectorUI, type SelectorUI } from "./selector-ui";
 import type { ExtensionReply, PageContext, SelectorState } from "./types";
 
@@ -20,21 +21,35 @@ function pageContext(document: Document): PageContext {
   };
 }
 
-function defaultClipboard(document: Document): ClipboardAdapter {
+function copyWithTemporaryTextarea(document: Document, value: string): void {
+  const textarea = document.createElement("textarea");
+  textarea.value = value;
+  textarea.setAttribute("aria-hidden", "true");
+  textarea.style.cssText = "position:fixed;left:-9999px;top:0;opacity:0";
+  (document.body ?? document.documentElement).append(textarea);
+  textarea.select();
+  try {
+    if (!document.execCommand("copy")) throw new Error("Clipboard write failed");
+  } finally {
+    textarea.remove();
+  }
+}
+
+export function createClipboardAdapter(document: Document): ClipboardAdapter {
   return {
     writeText: async (value) => {
       const clipboard = document.defaultView?.navigator.clipboard;
-      if (!clipboard) throw new Error("Clipboard API unavailable");
-      await clipboard.writeText(value);
+      if (clipboard) {
+        try {
+          await clipboard.writeText(value);
+          return;
+        } catch {
+          // Fall back on HTTP pages where the Clipboard API is unavailable to content scripts.
+        }
+      }
+      copyWithTemporaryTextarea(document, value);
     },
   };
-}
-
-function message(key: string, fallback: string): string {
-  const browser = (globalThis as typeof globalThis & {
-    browser?: { i18n?: { getMessage(name: string): string } };
-  }).browser;
-  return browser?.i18n?.getMessage(key) || fallback;
 }
 
 /** A per-document state machine that owns hit testing, isolated UI, and clipboard writes. */
@@ -52,7 +67,7 @@ export class SelectorSession {
     private readonly document: Document,
     options: SelectorSessionOptions = {},
   ) {
-    this.clipboard = options.clipboard ?? defaultClipboard(document);
+    this.clipboard = options.clipboard ?? createClipboardAdapter(document);
   }
 
   get state(): SelectorState {
@@ -98,7 +113,7 @@ export class SelectorSession {
   async copy(): Promise<void> {
     if (!this.locked) {
       this.lastCopyReply = { ok: false, code: "NO_LOCKED_ELEMENT" };
-      this.ui?.showToast(message("selectFirst", "Click an element first"), true);
+      this.ui?.showToast(getMessage("selectFirst", "Click an element first"), true);
       return;
     }
     if (!this.locked.isConnected || !this.document.documentElement.contains(this.locked)) {
@@ -106,18 +121,18 @@ export class SelectorSession {
       this.lockedPacket = undefined;
       this._state = "hovering";
       this.ui?.clearTarget();
-      this.ui?.showToast(message("staleElement", "Element changed. Select it again"), true);
+      this.ui?.showToast(getMessage("staleElement", "Element changed. Select it again"), true);
       this.lastCopyReply = { ok: false, code: "STALE_ELEMENT" };
       return;
     }
     try {
       const text = this.lockedPacket ?? formatSelectionPacket(buildSelectionPacket(this.locked, pageContext(this.document)));
       await this.clipboard.writeText(text);
-      this.ui?.showToast(message("copySuccess", "Copied"));
+      this.ui?.showToast(getMessage("copySuccess", "Copied"));
       this.unlock();
       this.lastCopyReply = { ok: true, state: this._state };
     } catch {
-      this.ui?.showToast(message("copyFailed", "Copy failed. Try again"), true);
+      this.ui?.showToast(getMessage("copyFailed", "Copy failed. Try again"), true);
       this.lastCopyReply = { ok: false, code: "CLIPBOARD_WRITE_FAILED" };
     }
   }

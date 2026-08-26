@@ -1,11 +1,5 @@
 const PURPLE = "#7C3AED";
-
-function message(key: string, fallback: string): string {
-  const browser = (globalThis as typeof globalThis & {
-    browser?: { i18n?: { getMessage(name: string): string } };
-  }).browser;
-  return browser?.i18n?.getMessage(key) || fallback;
-}
+import { getMessage } from "./messages";
 
 export interface SelectorUI {
   readonly host: HTMLElement;
@@ -44,9 +38,9 @@ export function mountSelectorUI(document: Document): SelectorUI {
   host.dataset.vibeElectorRoot = "";
   host.style.cssText = "position:fixed;inset:0;z-index:2147483647;pointer-events:none;";
   const shadow = host.attachShadow({ mode: "open" });
-  const selecting = message("statusSelecting", "Selecting page elements");
-  const copyToChat = message("copyToChat", "Copy to chat");
-  const closeSelector = message("closeSelector", "Close element selector");
+  const selecting = getMessage("statusSelecting", "Selecting page elements");
+  const copyToChat = getMessage("copyToChat", "Copy to chat");
+  const closeSelector = getMessage("closeSelector", "Close element selector");
   const style = document.createElement("style");
   style.textContent = `
     :host { all: initial; }

@@ -1,5 +1,6 @@
 import { defineUnlistedScript } from "wxt/utils/define-unlisted-script";
 
+import { getExtensionApi } from "../src/selector/messages";
 import { SelectorSession } from "../src/selector/selector-session";
 import type { ExtensionMessage, ExtensionReply } from "../src/selector/types";
 
@@ -11,9 +12,7 @@ declare global {
 }
 
 export default defineUnlistedScript(() => {
-const extensionBrowser = (globalThis as typeof globalThis & {
-  browser?: { runtime?: { onMessage?: { addListener(listener: (message: unknown) => Promise<ExtensionReply>): void } } };
-}).browser;
+const extensionApi = getExtensionApi();
 
 const session = (window.__vibeElectorSession__ ??= new SelectorSession(document));
 
@@ -32,7 +31,7 @@ async function handleMessage(message: ExtensionMessage): Promise<ExtensionReply>
 
 if (!window.__vibeElectorMessageListenerInstalled__) {
   window.__vibeElectorMessageListenerInstalled__ = true;
-  extensionBrowser?.runtime?.onMessage?.addListener((message: unknown) =>
+  extensionApi?.runtime?.onMessage?.addListener((message: unknown) =>
     handleMessage(message as ExtensionMessage),
   );
 }

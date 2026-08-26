@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { SelectorSession } from "../../src/selector/selector-session";
+import { createClipboardAdapter, SelectorSession } from "../../src/selector/selector-session";
 
 const sessions: SelectorSession[] = [];
 
@@ -15,6 +15,8 @@ function createSession(
 afterEach(() => {
   sessions.splice(0).forEach((session) => session.stop());
   document.body.innerHTML = "";
+  delete (document as unknown as { execCommand?: (command: string) => boolean }).execCommand;
+  delete (document.defaultView?.navigator as unknown as { clipboard?: unknown }).clipboard;
   vi.restoreAllMocks();
 });
 
@@ -39,6 +41,20 @@ function click(target: Element) {
 }
 
 describe("SelectorSession", () => {
+  it("falls back to a temporary textarea when the Clipboard API rejects the copy", async () => {
+    const execCommand = vi.fn().mockReturnValue(true);
+    Object.defineProperty(document, "execCommand", { configurable: true, value: execCommand });
+    Object.defineProperty(document.defaultView!.navigator, "clipboard", {
+      configurable: true,
+      value: { writeText: vi.fn().mockRejectedValue(new Error("Denied")) },
+    });
+
+    await createClipboardAdapter(document).writeText("[Vibe Elector v1]");
+
+    expect(execCommand).toHaveBeenCalledWith("copy");
+    expect(document.querySelector("textarea")).toBeNull();
+  });
+
   it("starts in hovering state and mounts one isolated Shadow DOM UI", () => {
     const session = createSession(document);
 
