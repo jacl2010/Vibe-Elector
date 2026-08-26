@@ -48,30 +48,6 @@ HTML: <button class="primary">Get Started</button>
 
 Click the toolbar icon, press `Option/Alt + Shift + E` again, or use the panel close button to exit selection mode.
 
-## Build and Install
-
-Requirements: Firefox Desktop, Node.js `22.17.1`, and pnpm `10.15.1`.
-
-```bash
-nvm use
-pnpm install --frozen-lockfile
-pnpm build:firefox
-```
-
-Open `about:debugging#/runtime/this-firefox` in Firefox, choose **Load Temporary Add-on**, and select:
-
-```text
-.output/firefox-mv3/manifest.json
-```
-
-Alternatively, launch a test browser from the command line:
-
-```bash
-pnpm exec web-ext run --source-dir .output/firefox-mv3 --no-reload
-```
-
-> `pnpm dev:firefox` is not currently recommended because the Firefox Manifest V3 development runner in WXT `0.20.9` has a startup compatibility issue.
-
 ## Keyboard Shortcuts
 
 | Action | Shortcut |
@@ -92,15 +68,6 @@ If a shortcut conflicts with another extension, rebind it from Firefox's extensi
 ## Privacy and Permissions
 
 Vibe Elector does not upload or persist page content. Password values are excluded, and HTML signatures retain only safe attributes. It uses `activeTab`, `scripting`, and `clipboardWrite`, and declares `file://` access so it can run on local files. See [PRIVACY.md](PRIVACY.md) for details.
-
-## Development
-
-```bash
-pnpm test          # Run the Vitest suite
-pnpm typecheck     # Check strict TypeScript types
-pnpm build:firefox # Build the Firefox MV3 extension
-pnpm lint          # Type-check and run web-ext lint
-```
 
 The project uses WXT, strict TypeScript, native DOM/CSS, Shadow DOM, Vitest, and `happy-dom`. Read [AGENTS.md](AGENTS.md) before contributing and [SOURCE_BUILD.md](SOURCE_BUILD.md) for reproducible build details.
 
