@@ -83,7 +83,7 @@ pnpm exec web-ext run --source-dir .output/firefox-mv3 --no-reload
 
 ## 支持范围与限制
 
-- 支持 HTTP、HTTPS、localhost，以及用户授权后的 `file://` 页面。
+- 支持 HTTP、HTTPS、localhost，以及重新载入扩展后可用的本地 `file://` 页面。
 - 支持普通 DOM 与 open Shadow DOM；closed Shadow DOM 只能选择其 host。
 - 不进入 iframe 内部，但可以选择 `<iframe>` 元素本身。
 - Firefox 系统页面、`about:*`、AMO 等受限页面不允许脚本注入。
@@ -91,7 +91,7 @@ pnpm exec web-ext run --source-dir .output/firefox-mv3 --no-reload
 
 ## 隐私与权限
 
-Vibe Elector 不会上传或持久化页面内容。密码输入框不会复制文本值，HTML 签名只保留安全属性。扩展使用 `activeTab`、`scripting` 和 `clipboardWrite`，仅在需要访问 `file://` 时请求可选权限。详情见 [PRIVACY.md](PRIVACY.md)。
+Vibe Elector 不会上传或持久化页面内容。密码输入框不会复制文本值，HTML 签名只保留安全属性。扩展使用 `activeTab`、`scripting` 和 `clipboardWrite`，并声明 `file://` 访问权限以支持本地文件页。详情见 [PRIVACY.md](PRIVACY.md)。
 
 ## 开发验证
 

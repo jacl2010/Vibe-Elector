@@ -11,7 +11,8 @@ describe("Firefox manifest configuration", () => {
 
     expect(manifest.default_locale).toBe("en");
     expect(manifest.permissions).toEqual(["activeTab", "scripting", "clipboardWrite"]);
-    expect(manifest.optional_host_permissions).toEqual(["file:///*"]);
+    expect(manifest.host_permissions).toEqual(["file:///*"]);
+    expect(manifest.optional_host_permissions).toBeUndefined();
     expect(manifest.browser_specific_settings?.gecko).toMatchObject({
       id: "vibe-elector@element-selector.local",
       data_collection_permissions: { required: ["none"] },

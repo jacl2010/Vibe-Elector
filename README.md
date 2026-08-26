@@ -83,7 +83,7 @@ If a shortcut conflicts with another extension, rebind it from Firefox's extensi
 
 ## Support and Limitations
 
-- Supports HTTP, HTTPS, localhost, and user-authorized `file://` pages.
+- Supports HTTP, HTTPS, localhost, and local `file://` pages after the extension is reloaded with file access declared.
 - Supports regular DOM and open Shadow DOM. A closed Shadow DOM can only be targeted through its host.
 - Does not enter iframes; the `<iframe>` element itself can still be selected.
 - Firefox system pages, `about:*`, AMO, and other restricted pages do not allow script injection.
@@ -91,7 +91,7 @@ If a shortcut conflicts with another extension, rebind it from Firefox's extensi
 
 ## Privacy and Permissions
 
-Vibe Elector does not upload or persist page content. Password values are excluded, and HTML signatures retain only safe attributes. It uses `activeTab`, `scripting`, and `clipboardWrite`; access to `file://` is requested only when needed. See [PRIVACY.md](PRIVACY.md) for details.
+Vibe Elector does not upload or persist page content. Password values are excluded, and HTML signatures retain only safe attributes. It uses `activeTab`, `scripting`, and `clipboardWrite`, and declares `file://` access so it can run on local files. See [PRIVACY.md](PRIVACY.md) for details.
 
 ## Development
 

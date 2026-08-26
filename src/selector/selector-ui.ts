@@ -10,7 +10,7 @@ function message(key: string, fallback: string): string {
 export interface SelectorUI {
   readonly host: HTMLElement;
   contains(node: Node | null): boolean;
-  setTarget(element: Element, locked: boolean): void;
+  setTarget(element: Element, locked: boolean, lockedPacket?: string): void;
   clearTarget(): void;
   showToast(message: string, isError?: boolean): void;
   onCopy(listener: () => void): void;
@@ -54,8 +54,16 @@ export function mountSelectorUI(document: Document): SelectorUI {
     #label { position:fixed; display:none; align-items:center; gap:6px; padding:2px 6px; color:#fff; background:${PURPLE}; border-radius:4px; font:12px/1.4 system-ui,sans-serif; z-index:2; }
     #label-size { color:#EDE9FE; }
     #panel { position:fixed; top:16px; right:16px; width:260px; padding:12px; box-sizing:border-box; pointer-events:auto; color:#1F2937; background:#fff; border:1px solid ${PURPLE}; border-radius:10px; box-shadow:0 12px 32px rgba(17,24,39,.18); font:13px/1.4 system-ui,sans-serif; }
-    #close { float:right; border:0; background:transparent; cursor:pointer; color:#6B7280; font-size:18px; line-height:16px; }
-    #copy { position:fixed; display:none; pointer-events:auto; z-index:3; border:0; padding:7px 10px; border-radius:6px; color:#fff; background:${PURPLE}; cursor:pointer; font:13px/1 system-ui,sans-serif; }
+    #panel[data-locked] { display:flex; flex-direction:column; width:min(320px, calc(100vw - 16px)); max-height:min(288px, calc(100vh - 16px)); padding:0; overflow:hidden; }
+    #panel-header { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    #panel[data-locked] #panel-header { flex:none; padding:10px 12px; border-bottom:1px solid #EDE9FE; background:#FAF9FF; color:#5B21B6; }
+    #close { border:0; background:transparent; cursor:pointer; color:#6B7280; font-size:18px; line-height:16px; }
+    #packet { display:none; min-height:0; margin:0; padding:10px 12px; overflow-y:auto; overflow-wrap:anywhere; white-space:pre-wrap; color:#374151; font:11px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace; }
+    #packet-actions { display:none; flex:none; justify-content:flex-end; padding:9px 12px 11px; border-top:1px solid #EDE9FE; }
+    #panel[data-locked] #status { display:none; }
+    #panel[data-locked] #packet { display:block; }
+    #panel[data-locked] #packet-actions { display:flex; }
+    #copy { pointer-events:auto; border:0; padding:7px 10px; border-radius:6px; color:#fff; background:${PURPLE}; cursor:pointer; font:13px/1 system-ui,sans-serif; }
     #toast { position:fixed; right:16px; bottom:16px; display:none; pointer-events:none; padding:8px 12px; border-radius:6px; color:#fff; background:#1F2937; font:13px/1.4 system-ui,sans-serif; }
   `;
 
@@ -75,6 +83,8 @@ export function mountSelectorUI(document: Document): SelectorUI {
   const panel = document.createElement("section");
   panel.id = "panel";
   panel.setAttribute("aria-label", "Vibe Elector");
+  const header = document.createElement("div");
+  header.id = "panel-header";
   const close = document.createElement("button");
   close.id = "close";
   close.type = "button";
@@ -82,27 +92,32 @@ export function mountSelectorUI(document: Document): SelectorUI {
   close.textContent = "×";
   const title = document.createElement("strong");
   title.textContent = "Vibe Elector";
+  header.append(title, close);
   const status = document.createElement("div");
   status.textContent = selecting;
-  const shortcut = document.createElement("small");
-  shortcut.textContent = "Alt+Shift+C to copy";
-  panel.append(close, title, status, shortcut);
+  const packet = document.createElement("pre");
+  packet.id = "packet";
+  packet.dataset.selectionPacket = "";
   const copy = document.createElement("button");
   copy.id = "copy";
   copy.dataset.copySelection = "";
   copy.type = "button";
   copy.textContent = copyToChat;
+  const packetActions = document.createElement("div");
+  packetActions.id = "packet-actions";
+  packetActions.append(copy);
+  panel.append(header, status, packet, packetActions);
   const toast = document.createElement("div");
   toast.id = "toast";
   toast.setAttribute("role", "status");
-  shadow.append(style, overlay, label, panel, copy, toast);
+  shadow.append(style, overlay, label, panel, toast);
   document.documentElement.append(host);
   let toastTimer: ReturnType<typeof setTimeout> | undefined;
 
   return {
     host,
     contains: (node) => Boolean(node && (node === host || shadow.contains(node))),
-    setTarget(element, locked) {
+    setTarget(element, locked, lockedPacket) {
       const rect = element.getBoundingClientRect();
       overlay.style.cssText = fixedStyle(rect);
       label.style.cssText = [
@@ -114,19 +129,18 @@ export function mountSelectorUI(document: Document): SelectorUI {
       labelName.textContent = elementLabel(element);
       labelSize.textContent = `${Math.max(0, Math.round(rect.width))} × ${Math.max(0, Math.round(rect.height))}`;
       if (locked) {
-        const top = Math.min(
-          Math.max(0, Math.round(rect.bottom + 6)),
-          Math.max(0, (document.defaultView?.innerHeight ?? 0) - 36),
-        );
-        copy.style.cssText = `display:block;position:fixed;left:${Math.round(rect.right - 110)}px;top:${top}px;pointer-events:auto;background:${PURPLE};`;
+        panel.dataset.locked = "";
+        packet.textContent = lockedPacket ?? "";
       } else {
-        copy.style.display = "none";
+        panel.removeAttribute("data-locked");
+        packet.textContent = "";
       }
     },
     clearTarget() {
       overlay.style.display = "none";
       label.style.display = "none";
-      copy.style.display = "none";
+      panel.removeAttribute("data-locked");
+      packet.textContent = "";
     },
     showToast(message, isError = false) {
       toast.textContent = message;

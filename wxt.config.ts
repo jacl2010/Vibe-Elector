@@ -7,7 +7,7 @@ export default defineConfig({
     name: "__MSG_extensionName__",
     description: "__MSG_extensionDescription__",
     permissions: ["activeTab", "scripting", "clipboardWrite"],
-    optional_host_permissions: ["file:///*"],
+    host_permissions: ["file:///*"],
     action: {
       default_title: "__MSG_extensionName__",
       default_icon: {

@@ -82,12 +82,16 @@ describe("SelectorSession", () => {
     session.start();
     session.lock(first);
     session.lock(second);
+    const shadow = document.querySelector("[data-vibe-elector-root]")!.shadowRoot!;
+    const shownPacket = shadow.querySelector("[data-selection-packet]")?.textContent;
+
+    expect(shownPacket).toContain('Target: button "Second"');
 
     await session.copy();
 
-    expect(writeText).toHaveBeenCalledOnce();
+    expect(writeText).toHaveBeenCalledWith(shownPacket);
     expect(session.state).toBe("hovering");
-    expect(document.querySelector("[data-vibe-elector-root]")!.shadowRoot!.textContent).toContain("Copied");
+    expect(shadow.textContent).toContain("Copied");
   });
 
   it("copies and unlocks when the Shadow DOM copy button is clicked", async () => {
@@ -110,7 +114,7 @@ describe("SelectorSession", () => {
 
     await vi.waitFor(() => expect(writeText).toHaveBeenCalledOnce());
     expect(session.state).toBe("hovering");
-    expect(copyButton.style.display).toBe("none");
+    expect(copyButton.closest("#panel")?.hasAttribute("data-locked")).toBe(false);
   });
 
   it("keeps the target locked when clipboard write fails", async () => {

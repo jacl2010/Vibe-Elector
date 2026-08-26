@@ -6,6 +6,6 @@ The extension does not collect, transmit, sell, share, or persist personal data.
 
 When you explicitly choose **Copy to chat** or use the copy shortcut, a compact description of the selected page element is written to your local clipboard. That description can contain the page URL, title, element attributes, visible text, DOM path, and viewport position. It is not sent anywhere by this extension. Pasting clipboard content into an AI assistant or another service is your own action and subject to that service's privacy policy.
 
-The extension requests only `activeTab`, `scripting`, and `clipboardWrite`. Local `file://` access is optional and requested only when you choose to use the extension on a local file. No `tabs`, `storage`, history, network, or broad host permissions are requested.
+The extension requests `activeTab`, `scripting`, `clipboardWrite`, and `file:///*` host access so it can run on local files. It does not request `tabs`, `storage`, history, or network permissions. Local page content is accessed only after you trigger the extension.
 
 For privacy questions, contact the repository maintainer through the project issue tracker.

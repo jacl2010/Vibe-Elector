@@ -4,8 +4,6 @@ export type ExtensionMessage = { type: "TOGGLE_SESSION" } | { type: "COPY_SELECT
 
 export interface BrowserAdapter {
   getActiveTab(): Promise<{ id?: number; url?: string }>;
-  hasFilePermission(origins: string[]): Promise<boolean>;
-  requestFilePermission(origins: string[]): Promise<boolean>;
   injectSelector(tabId: number, files: string[]): Promise<void>;
   sendMessage(tabId: number, message: ExtensionMessage): Promise<void>;
   setBadge(tabId: number, text: string, color?: string): Promise<void>;
@@ -18,7 +16,6 @@ export interface BackgroundController {
   handleCommand(command: string): Promise<void>;
 }
 
-const FILE_ORIGINS = ["file:///*"];
 const SELECTOR_FILE = ["/selector.js"];
 const BADGE_DURATION_MS = 2500;
 
@@ -37,13 +34,6 @@ export function createBackgroundController(browser: BrowserAdapter, unsupportedT
     if (tab.id === undefined || getUrlAccess(tab.url) === "unsupported") {
       if (tab.id !== undefined) await showFailure(tab.id);
       return;
-    }
-    if (getUrlAccess(tab.url) === "file") {
-      const granted = await browser.hasFilePermission(FILE_ORIGINS);
-      if (!granted && !(await browser.requestFilePermission(FILE_ORIGINS))) {
-        await showFailure(tab.id);
-        return;
-      }
     }
     try {
       await browser.injectSelector(tab.id, SELECTOR_FILE);

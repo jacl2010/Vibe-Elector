@@ -4,8 +4,6 @@ import { createBackgroundController, type BrowserAdapter } from "../../src/backg
 function makeBrowser(overrides: Partial<BrowserAdapter> = {}): BrowserAdapter {
   return {
     getActiveTab: vi.fn().mockResolvedValue({ id: 7, url: "https://example.test" }),
-    hasFilePermission: vi.fn().mockResolvedValue(false),
-    requestFilePermission: vi.fn().mockResolvedValue(false),
     injectSelector: vi.fn().mockResolvedValue(undefined),
     sendMessage: vi.fn().mockResolvedValue(undefined),
     setBadge: vi.fn().mockResolvedValue(undefined),
@@ -35,23 +33,23 @@ describe("background controller", () => {
     expect(browser.sendMessage).toHaveBeenCalledWith(7, { type: "COPY_SELECTION" });
   });
 
-  it("requests file access only when it is not already granted", async () => {
+  it("injects on local files without requesting optional permissions", async () => {
     const browser = makeBrowser({
       getActiveTab: vi.fn().mockResolvedValue({ id: 7, url: "file:///tmp/demo.html" }),
-      requestFilePermission: vi.fn().mockResolvedValue(true),
     });
     const controller = createBackgroundController(browser, () => "Unavailable");
 
     await controller.toggle();
 
-    expect(browser.requestFilePermission).toHaveBeenCalledWith(["file:///*"]);
-    expect(browser.injectSelector).toHaveBeenCalled();
+    expect(browser.injectSelector).toHaveBeenCalledWith(7, ["/selector.js"]);
+    expect(browser.sendMessage).toHaveBeenCalledWith(7, { type: "TOGGLE_SESSION" });
   });
 
-  it("shows a temporary error badge when file access is refused", async () => {
+  it("shows a temporary error badge when injection fails on a local file", async () => {
     vi.useFakeTimers();
     const browser = makeBrowser({
       getActiveTab: vi.fn().mockResolvedValue({ id: 7, url: "file:///tmp/demo.html" }),
+      injectSelector: vi.fn().mockRejectedValue(new Error("Injection failed")),
     });
     const controller = createBackgroundController(browser, () => "Unavailable");
 

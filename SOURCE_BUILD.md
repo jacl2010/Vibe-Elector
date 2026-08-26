@@ -27,5 +27,5 @@ The selector UI is mounted with DOM APIs. Dynamic labels and toast messages are 
 1. Run `pnpm dev:firefox` and load the temporary extension in Firefox.
 2. Open an HTTPS page or localhost page, then activate Vibe Elector from the toolbar.
 3. Lock an element, copy its locator, and confirm that no request leaves the browser.
-4. Open a local `file://` page and approve the optional permission when prompted.
+4. Open a local `file://` page, then click the Vibe Elector toolbar icon to start selecting.
 5. Try `about:addons` or addons.mozilla.org and confirm the temporary error badge appears.

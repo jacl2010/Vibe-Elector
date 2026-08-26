@@ -11,8 +11,6 @@ function adaptBrowser(): BrowserAdapter {
         ...(tab?.url === undefined ? {} : { url: tab.url }),
       };
     },
-    hasFilePermission: (origins) => browser.permissions.contains({ origins }),
-    requestFilePermission: (origins) => browser.permissions.request({ origins }),
     async injectSelector(tabId, files) {
       await browser.scripting.executeScript({ target: { tabId }, files });
     },

@@ -6,7 +6,7 @@ describe("URL access policy", () => {
     expect(getUrlAccess(url)).toBe("web");
   });
 
-  it("marks local files for optional permission", () => {
+  it("marks local files for file access", () => {
     expect(getUrlAccess("file:///tmp/demo.html")).toBe("file");
   });
 

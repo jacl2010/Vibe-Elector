@@ -43,6 +43,7 @@ export class SelectorSession {
   private ui: SelectorUI | undefined;
   private hovered: Element | undefined;
   private locked: Element | undefined;
+  private lockedPacket: string | undefined;
   private pendingRender = false;
   private _state: SelectorState = "inactive";
   private lastCopyReply: ExtensionReply = { ok: true, state: "inactive" };
@@ -80,6 +81,7 @@ export class SelectorSession {
     if (this._state === "inactive" || this.isExtensionUi(element)) return;
     this.locked = element;
     this.hovered = element;
+    this.lockedPacket = formatSelectionPacket(buildSelectionPacket(element, pageContext(this.document)));
     this._state = "locked";
     this.renderNow();
   }
@@ -87,6 +89,7 @@ export class SelectorSession {
   unlock(): void {
     if (this._state !== "locked") return;
     this.locked = undefined;
+    this.lockedPacket = undefined;
     this._state = "hovering";
     if (this.hovered?.isConnected) this.renderNow();
     else this.ui?.clearTarget();
@@ -100,6 +103,7 @@ export class SelectorSession {
     }
     if (!this.locked.isConnected || !this.document.documentElement.contains(this.locked)) {
       this.locked = undefined;
+      this.lockedPacket = undefined;
       this._state = "hovering";
       this.ui?.clearTarget();
       this.ui?.showToast(message("staleElement", "Element changed. Select it again"), true);
@@ -107,7 +111,7 @@ export class SelectorSession {
       return;
     }
     try {
-      const text = formatSelectionPacket(buildSelectionPacket(this.locked, pageContext(this.document)));
+      const text = this.lockedPacket ?? formatSelectionPacket(buildSelectionPacket(this.locked, pageContext(this.document)));
       await this.clipboard.writeText(text);
       this.ui?.showToast(message("copySuccess", "Copied"));
       this.unlock();
@@ -130,6 +134,7 @@ export class SelectorSession {
     this.ui = undefined;
     this.hovered = undefined;
     this.locked = undefined;
+    this.lockedPacket = undefined;
     this.pendingRender = false;
     this._state = "inactive";
     this.lastCopyReply = { ok: true, state: "inactive" };
@@ -194,6 +199,6 @@ export class SelectorSession {
       this.ui?.clearTarget();
       return;
     }
-    this.ui?.setTarget(target, this._state === "locked");
+    this.ui?.setTarget(target, this._state === "locked", this.lockedPacket);
   }
 }

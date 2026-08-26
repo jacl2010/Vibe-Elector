@@ -36,4 +36,40 @@ describe("mountSelectorUI", () => {
     expect(shadow.querySelector("[data-selector-label-name]")?.textContent).toBe("button");
     expect(shadow.querySelector("[data-selector-label-size]")?.textContent).toBe("124 × 45");
   });
+
+  it("shows the locked packet in a bounded scrollable panel", () => {
+    const target = document.createElement("button");
+    Object.defineProperty(target, "getBoundingClientRect", {
+      value: () => ({ left: 10, top: 20, width: 123, height: 45, right: 133 }),
+    });
+    document.body.append(target);
+    const ui = mountSelectorUI(document);
+    const packet = "[Vibe Elector v1]\\nTarget: button \\\"Long content\\\"\\n".repeat(30);
+
+    ui.setTarget(target, true, packet);
+
+    const shadow = ui.host.shadowRoot!;
+    const panel = shadow.querySelector("#panel")!;
+    const packetElement = shadow.querySelector<HTMLElement>("[data-selection-packet]")!;
+    expect(panel.hasAttribute("data-locked")).toBe(true);
+    expect(packetElement.textContent).toBe(packet);
+    expect(getComputedStyle(packetElement).overflowY).toBe("auto");
+  });
+
+  it("keeps the panel at its default position and omits the copy shortcut", () => {
+    const target = document.createElement("button");
+    Object.defineProperty(target, "getBoundingClientRect", {
+      value: () => ({ left: 10, top: 20, width: 123, height: 45, right: 133 }),
+    });
+    document.body.append(target);
+    const ui = mountSelectorUI(document);
+
+    ui.setTarget(target, true);
+
+    const shadow = ui.host.shadowRoot!;
+    const panel = shadow.querySelector<HTMLElement>("#panel")!;
+    expect(panel.style.left).toBe("");
+    expect(panel.style.top).toBe("");
+    expect(shadow.textContent).not.toContain("Alt+Shift+C to copy");
+  });
 });
