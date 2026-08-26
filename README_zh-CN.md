@@ -21,7 +21,7 @@
 
 ### 1. 开启选择模式并锁定元素
 
-点击 Firefox 工具栏中的 Vibe Elector 图标，或按 Option/`Alt + Shift + E`。移动鼠标预览元素，单击后锁定目标。
+点击 Firefox 工具栏中的 Vibe Elector 图标，或按 `Option/Alt + Shift + E`。移动鼠标预览元素，单击后锁定目标。
 
 ### 2. 复制定位包
 
@@ -48,38 +48,12 @@ HTML: <button class="primary">立即开始</button>
 
 再次点击工具栏图标、按 `Alt + Shift + E`，或点击浮窗关闭按钮即可退出选择模式。
 
-## 构建与安装
-
-环境要求：Firefox Desktop、Node.js `22.17.1`、pnpm `10.15.1`。
-
-```bash
-nvm use
-pnpm install --frozen-lockfile
-pnpm build:firefox
-```
-
-在 Firefox 地址栏打开 `about:debugging#/runtime/this-firefox`，点击“临时载入附加组件”，选择：
-
-```text
-.output/firefox-mv3/manifest.json
-```
-
-也可以通过命令启动测试浏览器：
-
-```bash
-pnpm exec web-ext run --source-dir .output/firefox-mv3 --no-reload
-```
-
-> 暂不建议使用 `pnpm dev:firefox`：当前 WXT `0.20.9` 的 Firefox Manifest V3 开发运行器存在启动兼容问题。
-
 ## 快捷键
 
 | 操作 | 快捷键 |
 | --- | --- |
 | 开启或退出选择模式 | `Option/Alt + Shift + E` |
 | 复制已锁定元素 | `Option/Alt + Shift + C` |
-
-快捷键冲突时，可在 `about:addons` 的扩展快捷键设置中重新绑定。
 
 ## 支持范围与限制
 
@@ -92,15 +66,6 @@ pnpm exec web-ext run --source-dir .output/firefox-mv3 --no-reload
 ## 隐私与权限
 
 Vibe Elector 不会上传或持久化页面内容。密码输入框不会复制文本值，HTML 签名只保留安全属性。扩展使用 `activeTab`、`scripting` 和 `clipboardWrite`，并声明 `file://` 访问权限以支持本地文件页。详情见 [PRIVACY.md](PRIVACY.md)。
-
-## 开发验证
-
-```bash
-pnpm test          # 运行 Vitest 自动化测试
-pnpm typecheck     # 检查 strict TypeScript 类型
-pnpm build:firefox # 构建 Firefox MV3 扩展
-pnpm lint          # 类型检查并运行 web-ext lint
-```
 
 项目使用 WXT、strict TypeScript、原生 DOM/CSS、Shadow DOM、Vitest 与 `happy-dom`。参与开发前请阅读 [AGENTS.md](AGENTS.md)，可复现构建说明见 [SOURCE_BUILD.md](SOURCE_BUILD.md)。
 
