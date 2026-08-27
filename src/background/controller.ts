@@ -25,7 +25,7 @@ export function createBackgroundController(browser: BrowserAdapter, unsupportedT
     await browser.setTitle(tabId, unsupportedTitle());
     globalThis.setTimeout(() => {
       void browser.setBadge(tabId, "");
-      void browser.setTitle(tabId, "Vibe Elector");
+      void browser.setTitle(tabId, "Vibe Selector");
     }, BADGE_DURATION_MS);
   }
 

@@ -87,7 +87,7 @@ export function buildSelectionPacket(
     target.xpath = buildXPath(element);
   }
 
-  return { version: "Vibe Elector v1", page: pageContext, target };
+  return { version: "Vibe Selector v1", page: pageContext, target };
 }
 
 /** Formats packet fields in the stable clipboard protocol order. */

@@ -4,7 +4,7 @@ import { mountSelectorUI } from "../../src/selector/selector-ui";
 
 describe("mountSelectorUI", () => {
   afterEach(() => {
-    document.querySelector("[data-vibe-elector-root]")?.remove();
+    document.querySelector("[data-vibe-selector-root]")?.remove();
     vi.restoreAllMocks();
   });
 
@@ -44,7 +44,7 @@ describe("mountSelectorUI", () => {
     });
     document.body.append(target);
     const ui = mountSelectorUI(document);
-    const packet = "[Vibe Elector v1]\\nTarget: button \\\"Long content\\\"\\n".repeat(30);
+    const packet = "[Vibe Selector v1]\\nTarget: button \\\"Long content\\\"\\n".repeat(30);
 
     ui.setTarget(target, true, packet);
 

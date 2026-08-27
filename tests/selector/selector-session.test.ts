@@ -49,7 +49,7 @@ describe("SelectorSession", () => {
       value: { writeText: vi.fn().mockRejectedValue(new Error("Denied")) },
     });
 
-    await createClipboardAdapter(document).writeText("[Vibe Elector v1]");
+    await createClipboardAdapter(document).writeText("[Vibe Selector v1]");
 
     expect(execCommand).toHaveBeenCalledWith("copy");
     expect(document.querySelector("textarea")).toBeNull();
@@ -61,9 +61,9 @@ describe("SelectorSession", () => {
     session.start();
     session.start();
 
-    const host = document.querySelector("[data-vibe-elector-root]") as HTMLElement;
+    const host = document.querySelector("[data-vibe-selector-root]") as HTMLElement;
     expect(session.state).toBe("hovering");
-    expect(document.querySelectorAll("[data-vibe-elector-root]")).toHaveLength(1);
+    expect(document.querySelectorAll("[data-vibe-selector-root]")).toHaveLength(1);
     expect(host.shadowRoot).not.toBeNull();
     expect(host.shadowRoot!.querySelector("[data-selector-overlay]")).not.toBeNull();
     expect(host.shadowRoot!.textContent).toContain("Selecting page elements");
@@ -83,8 +83,8 @@ describe("SelectorSession", () => {
     click(link);
 
     expect(session.state).toBe("locked");
-    expect(link.hasAttribute("data-vibe-elector-selected")).toBe(false);
-    const ui = document.querySelector("[data-vibe-elector-root]")!.shadowRoot!;
+    expect(link.hasAttribute("data-vibe-selector-selected")).toBe(false);
+    const ui = document.querySelector("[data-vibe-selector-root]")!.shadowRoot!;
     expect(ui.querySelector("[data-selector-overlay]")?.getAttribute("style")).toContain("#7C3AED");
     expect(ui.querySelector("[data-copy-selection]")).not.toBeNull();
   });
@@ -98,7 +98,7 @@ describe("SelectorSession", () => {
     session.start();
     session.lock(first);
     session.lock(second);
-    const shadow = document.querySelector("[data-vibe-elector-root]")!.shadowRoot!;
+    const shadow = document.querySelector("[data-vibe-selector-root]")!.shadowRoot!;
     const shownPacket = shadow.querySelector("[data-selection-packet]")?.textContent;
 
     expect(shownPacket).toContain('Target: button "Second"');
@@ -117,7 +117,7 @@ describe("SelectorSession", () => {
     session.start();
     session.lock(document.querySelector("button")!);
     const copyButton = document
-      .querySelector("[data-vibe-elector-root]")!
+      .querySelector("[data-vibe-selector-root]")!
       .shadowRoot!.querySelector<HTMLButtonElement>("[data-copy-selection]")!;
 
     copyButton.dispatchEvent(
@@ -144,7 +144,7 @@ describe("SelectorSession", () => {
     await session.copy();
 
     expect(session.state).toBe("locked");
-    expect(document.querySelector("[data-vibe-elector-root]")!.shadowRoot!.textContent).toContain("Copy failed. Try again");
+    expect(document.querySelector("[data-vibe-selector-root]")!.shadowRoot!.textContent).toContain("Copy failed. Try again");
   });
 
   it("clears a stale locked element and handles Escape as unlock then stop", async () => {
@@ -159,7 +159,7 @@ describe("SelectorSession", () => {
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
 
     expect(session.state).toBe("inactive");
-    expect(document.querySelector("[data-vibe-elector-root]")).toBeNull();
+    expect(document.querySelector("[data-vibe-selector-root]")).toBeNull();
     expect(document.body.contains(target)).toBe(false);
   });
 
@@ -169,7 +169,7 @@ describe("SelectorSession", () => {
     const session = createSession(document);
     session.start();
     const uiTarget = document
-      .querySelector("[data-vibe-elector-root]")!
+      .querySelector("[data-vibe-selector-root]")!
       .shadowRoot!.querySelector("#panel")!;
     setHitTarget(uiTarget);
 
@@ -180,7 +180,7 @@ describe("SelectorSession", () => {
     session.stop();
 
     expect(session.state).toBe("inactive");
-    expect(document.querySelector("[data-vibe-elector-root]")).toBeNull();
+    expect(document.querySelector("[data-vibe-selector-root]")).toBeNull();
     expect(pageTarget.getAttribute("class")).toBeNull();
   });
 });

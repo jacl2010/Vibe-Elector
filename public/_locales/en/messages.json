@@ -1,7 +1,7 @@
 {
-  "extensionName": { "message": "Vibe Elector" },
+  "extensionName": { "message": "Vibe Selector" },
   "extensionDescription": { "message": "Select page elements and copy a compact locator for coding agents." },
-  "toggleCommand": { "message": "Toggle Vibe Elector" },
+  "toggleCommand": { "message": "Toggle Vibe Selector" },
   "copyCommand": { "message": "Copy selected element" },
   "statusSelecting": { "message": "Selecting page elements" },
   "copyToChat": { "message": "Copy to chat" },

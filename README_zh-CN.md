@@ -2,15 +2,15 @@
   <a href="README.md">English</a> | <strong>简体中文</strong>
 </p>
 
-# Vibe Elector
+# Vibe Selector
 
 面向 Coding Agent 的 Firefox 和 Chrome 页面元素选择器。点击页面元素，即可复制一段简洁、稳定、可直接粘贴到 AI 编程对话中的定位信息，减少“我说的到底是哪个按钮”的沟通成本。
 
-**[从 Firefox Add-ons 安装 Vibe Elector](https://addons.mozilla.org/zh-CN/firefox/addon/vibe-elector/)**
+**[从 Firefox Add-ons 安装 Vibe Selector](https://addons.mozilla.org/zh-CN/firefox/addon/vibe-elector/)**
 
 > **浏览器支持**：Firefox 已在 Firefox Add-ons 发布；Chrome 可本地构建并加载，尚未发布至 Chrome Web Store。
 
-## 为什么使用 Vibe Elector
+## 为什么使用 Vibe Selector
 
 - **为 Coding Agent 设计**：输出 URL、元素摘要、Selector、DOM Path、尺寸与安全 HTML 签名，而不是整页 DOM。
 - **定位更可靠**：优先使用稳定的 `id`、测试属性和语义属性；必要时生成结构路径，并支持 open Shadow DOM 的 `>>>` 分段 Selector。
@@ -21,7 +21,7 @@
 
 ### 1. 开启选择模式并锁定元素
 
-点击 Firefox 或 Chrome 工具栏中的 Vibe Elector 图标，或按 `Option/Alt + Shift + E`。移动鼠标预览元素，单击后锁定目标。
+点击 Firefox 或 Chrome 工具栏中的 Vibe Selector 图标，或按 `Option/Alt + Shift + E`。移动鼠标预览元素，单击后锁定目标。
 
 ### 2. 复制定位包
 
@@ -31,12 +31,12 @@
 
 把定位包与修改要求一起粘贴到 Codex、Claude Code、Cursor 等编程工具中，Agent 可直接按 Selector 和上下文查找目标。
 
-![复制定位包并粘贴到 Coding Agent](docs/images/vibe-elector-copy-zh-CN.png)
+![复制定位包并粘贴到 Coding Agent](docs/images/vibe-selector-copy-zh-CN.png)
 
 定位包示例：
 
 ```text
-[Vibe Elector v1]
+[Vibe Selector v1]
 URL: http://localhost:3000
 Title: Dashboard
 Target: button "立即开始"
@@ -65,7 +65,7 @@ HTML: <button class="primary">立即开始</button>
 
 ## 隐私与权限
 
-Vibe Elector 不会上传或持久化页面内容。密码输入框不会复制文本值，HTML 签名只保留安全属性。扩展使用 `activeTab`、`scripting` 和 `clipboardWrite`，并声明 `file://` 访问权限以支持本地文件页。详情见 [PRIVACY.md](PRIVACY.md)。
+Vibe Selector 不会上传或持久化页面内容。密码输入框不会复制文本值，HTML 签名只保留安全属性。扩展使用 `activeTab`、`scripting` 和 `clipboardWrite`，并声明 `file://` 访问权限以支持本地文件页。详情见 [PRIVACY.md](PRIVACY.md)。
 
 项目使用 WXT、strict TypeScript、原生 DOM/CSS、Shadow DOM、Vitest 与 `happy-dom`。参与开发前请阅读 [AGENTS.md](AGENTS.md)，可复现构建说明见 [SOURCE_BUILD.md](SOURCE_BUILD.md)。
 

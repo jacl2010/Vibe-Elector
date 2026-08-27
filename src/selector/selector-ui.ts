@@ -35,7 +35,7 @@ function fixedStyle(rect: DOMRect | ClientRect): string {
 /** Mounts all extension UI inside a single ShadowRoot so page styles cannot affect it. */
 export function mountSelectorUI(document: Document): SelectorUI {
   const host = document.createElement("div");
-  host.dataset.vibeElectorRoot = "";
+  host.dataset.vibeSelectorRoot = "";
   host.style.cssText = "position:fixed;inset:0;z-index:2147483647;pointer-events:none;";
   const shadow = host.attachShadow({ mode: "open" });
   const selecting = getMessage("statusSelecting", "Selecting page elements");
@@ -76,7 +76,7 @@ export function mountSelectorUI(document: Document): SelectorUI {
   label.append(labelName, labelSize);
   const panel = document.createElement("section");
   panel.id = "panel";
-  panel.setAttribute("aria-label", "Vibe Elector");
+  panel.setAttribute("aria-label", "Vibe Selector");
   const header = document.createElement("div");
   header.id = "panel-header";
   const close = document.createElement("button");
@@ -85,7 +85,7 @@ export function mountSelectorUI(document: Document): SelectorUI {
   close.setAttribute("aria-label", closeSelector);
   close.textContent = "×";
   const title = document.createElement("strong");
-  title.textContent = "Vibe Elector";
+  title.textContent = "Vibe Selector";
   header.append(title, close);
   const status = document.createElement("div");
   status.textContent = selecting;

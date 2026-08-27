@@ -6,15 +6,15 @@ import type { ExtensionMessage, ExtensionReply } from "../src/selector/types";
 
 declare global {
   interface Window {
-    __vibeElectorSession__?: SelectorSession;
-    __vibeElectorMessageListenerInstalled__?: boolean;
+    __vibeSelectorSession__?: SelectorSession;
+    __vibeSelectorMessageListenerInstalled__?: boolean;
   }
 }
 
 export default defineUnlistedScript(() => {
 const extensionApi = getExtensionApi();
 
-const session = (window.__vibeElectorSession__ ??= new SelectorSession(document));
+const session = (window.__vibeSelectorSession__ ??= new SelectorSession(document));
 
 async function handleMessage(message: ExtensionMessage): Promise<ExtensionReply> {
   if (message.type === "TOGGLE_SESSION") {
@@ -29,8 +29,8 @@ async function handleMessage(message: ExtensionMessage): Promise<ExtensionReply>
   return { ok: false, code: "INJECTION_FAILED" };
 }
 
-if (!window.__vibeElectorMessageListenerInstalled__) {
-  window.__vibeElectorMessageListenerInstalled__ = true;
+if (!window.__vibeSelectorMessageListenerInstalled__) {
+  window.__vibeSelectorMessageListenerInstalled__ = true;
   extensionApi?.runtime?.onMessage?.addListener((message: unknown) =>
     handleMessage(message as ExtensionMessage),
   );

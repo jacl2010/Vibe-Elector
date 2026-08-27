@@ -2,15 +2,15 @@
   <strong>English</strong> | <a href="README_zh-CN.md">简体中文</a>
 </p>
 
-# Vibe Elector
+# Vibe Selector
 
 A Firefox and Chrome element selector built for Coding Agents. Click any page element and copy a compact, stable context packet directly into an AI coding conversation—so your agent knows exactly which button, panel, or field you mean.
 
-**[Install Vibe Elector from Firefox Add-ons](https://addons.mozilla.org/zh-CN/firefox/addon/vibe-elector/)**
+**[Install Vibe Selector from Firefox Add-ons](https://addons.mozilla.org/zh-CN/firefox/addon/vibe-elector/)**
 
 > **Browser support:** Firefox is available from Firefox Add-ons. Chrome can be built and loaded locally; Chrome Web Store distribution is not available yet.
 
-## Why Vibe Elector
+## Why Vibe Selector
 
 - **Built for Coding Agents:** Copies the URL, element summary, selector, DOM path, dimensions, and a safe HTML signature instead of dumping the entire DOM.
 - **More reliable targeting:** Prefers stable IDs, test attributes, and semantic attributes; falls back to structural paths and supports open Shadow DOM selectors with `>>>` segments.
@@ -21,7 +21,7 @@ A Firefox and Chrome element selector built for Coding Agents. Click any page el
 
 ### 1. Select and lock an element
 
-Click the Vibe Elector toolbar icon or press `Option/Alt + Shift + E`. Move the pointer to preview elements, then click to lock the target.
+Click the Vibe Selector toolbar icon or press `Option/Alt + Shift + E`. Move the pointer to preview elements, then click to lock the target.
 
 ### 2. Copy the selection packet
 
@@ -31,12 +31,12 @@ Click **Copy to chat** in the floating panel or press `Option/Alt + Shift + C`. 
 
 Paste the packet together with your request into Codex, Claude Code, Cursor, or another coding tool. The agent can use the selector and context to locate the target directly.
 
-![Copy the selection packet into a Coding Agent](docs/images/vibe-elector-copy-zh-CN.png)
+![Copy the selection packet into a Coding Agent](docs/images/vibe-selector-copy-zh-CN.png)
 
 Example packet:
 
 ```text
-[Vibe Elector v1]
+[Vibe Selector v1]
 URL: http://localhost:3000
 Title: Dashboard
 Target: button "Get Started"
@@ -65,7 +65,7 @@ Click the toolbar icon, press `Option/Alt + Shift + E` again, or use the panel c
 
 ## Privacy and Permissions
 
-Vibe Elector does not upload or persist page content. Password values are excluded, and HTML signatures retain only safe attributes. It uses `activeTab`, `scripting`, and `clipboardWrite`, and declares `file://` access so it can run on local files. See [PRIVACY.md](PRIVACY.md) for details.
+Vibe Selector does not upload or persist page content. Password values are excluded, and HTML signatures retain only safe attributes. It uses `activeTab`, `scripting`, and `clipboardWrite`, and declares `file://` access so it can run on local files. See [PRIVACY.md](PRIVACY.md) for details.
 
 The project uses WXT, strict TypeScript, native DOM/CSS, Shadow DOM, Vitest, and `happy-dom`. Read [AGENTS.md](AGENTS.md) before contributing and [SOURCE_BUILD.md](SOURCE_BUILD.md) for reproducible build details.
 

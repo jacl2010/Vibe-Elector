@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Point at a Firefox page element and copy its context for your coding agent.">
-  <title>Vibe Elector: Point at it. Copy the context.</title>
+  <title>Vibe Selector: Point at it. Copy the context.</title>
   <style>
     :root { --ink:#171925; --muted:#686b7d; --line:#e7e6ed; --violet:#7657ef; --cream:#f7f7f4; --green:#256a50; }
     * { box-sizing:border-box; }
@@ -68,8 +68,8 @@
 <body data-lang="en">
   <div class="page">
     <nav class="nav" aria-label="Main navigation">
-      <a class="brand" href="#top"><span class="brand-mark"><img src="public/icon/vibe-elector-96.svg" alt="Vibe Elector"></span>Vibe Elector</a>
-      <div class="nav-right"><a class="nav-link" href="https://github.com/jacl2010/Vibe-Elector" target="_blank" rel="noreferrer">GitHub ↗</a><div class="lang" aria-label="Language"><button class="active" type="button" onclick="setLanguage('en',this)">EN</button><button type="button" onclick="setLanguage('zh',this)">中文</button></div></div>
+      <a class="brand" href="#top"><span class="brand-mark"><img src="public/icon/vibe-selector-96.svg" alt="Vibe Selector"></span>Vibe Selector</a>
+      <div class="nav-right"><a class="nav-link" href="https://github.com/jacl2010/Vibe-Selector" target="_blank" rel="noreferrer">GitHub ↗</a><div class="lang" aria-label="Language"><button class="active" type="button" onclick="setLanguage('en',this)">EN</button><button type="button" onclick="setLanguage('zh',this)">中文</button></div></div>
     </nav>
     <main id="top">
       <section class="hero">
@@ -78,26 +78,26 @@
           <h1 class="only-en">Point at what you want to change.<br><span class="violet">Give your agent the details.</span></h1>
           <h1 class="only-zh">指给 Agent 看。<br><span class="violet">不用再费劲描述。</span></h1>
           <p class="lede only-en">Click an interface element and copy its selector and useful context for your coding agent. No full-page DOM dump.</p><p class="lede only-zh">点选一个界面元素，把 Selector 和必要上下文复制给 Coding Agent。不用再贴整页 DOM。</p>
-          <div class="actions"><a class="install" href="https://addons.mozilla.org/zh-CN/firefox/addon/vibe-elector/" target="_blank" rel="noreferrer"><span class="browser-icon"><img src="docs/images/firefox-logo.png" alt=""></span><span class="only-en">Add to Firefox</span><span class="only-zh">添加到 Firefox</span><span>↗</span></a><span class="install install-disabled" aria-disabled="true"><span class="browser-icon"><img src="docs/images/chrome-logo.png" alt=""></span><span class="only-en">Chrome · Coming soon</span><span class="only-zh">Chrome 建设中</span></span><a class="ghost" href="https://github.com/jacl2010/Vibe-Elector" target="_blank" rel="noreferrer"><span class="only-en">View on GitHub</span><span class="only-zh">在 GitHub 查看</span></a></div>
+          <div class="actions"><a class="install" href="https://addons.mozilla.org/zh-CN/firefox/addon/vibe-elector/" target="_blank" rel="noreferrer"><span class="browser-icon"><img src="docs/images/firefox-logo.png" alt=""></span><span class="only-en">Add to Firefox</span><span class="only-zh">添加到 Firefox</span><span>↗</span></a><span class="install install-disabled" aria-disabled="true"><span class="browser-icon"><img src="docs/images/chrome-logo.png" alt=""></span><span class="only-en">Chrome · Coming soon</span><span class="only-zh">Chrome 建设中</span></span><a class="ghost" href="https://github.com/jacl2010/Vibe-Selector" target="_blank" rel="noreferrer"><span class="only-en">View on GitHub</span><span class="only-zh">在 GitHub 查看</span></a></div>
         </div>
-        <div class="demo-stage" aria-label="Vibe Elector product demonstration"><div class="browser"><div class="browser-top"><span class="traffic"><i></i><i></i><i></i></span><span class="address"><i></i>example.local/dashboard</span><span class="toolbar"><span>☆</span><span class="more">⋮</span></span></div><div class="shot-viewport"><img class="shot" src="docs/images/vibe-elector-select-zh-CN.png" alt="Vibe Elector selecting a page element"></div></div><div class="copy-card"><span class="copy-icon">✦</span><b class="only-en">Context copied</b><b class="only-zh">定位信息已复制</b><p class="only-en">Pick the next element, or paste this into your coding agent.</p><p class="only-zh">继续选择下一个元素，或直接粘贴给 Coding Agent。</p><span class="copied"><i></i><span class="only-en">Copied to your local clipboard</span><span class="only-zh">已复制到本地剪贴板</span></span></div></div>
+        <div class="demo-stage" aria-label="Vibe Selector product demonstration"><div class="browser"><div class="browser-top"><span class="traffic"><i></i><i></i><i></i></span><span class="address"><i></i>example.local/dashboard</span><span class="toolbar"><span>☆</span><span class="more">⋮</span></span></div><div class="shot-viewport"><img class="shot" src="docs/images/vibe-selector-select-zh-CN.png" alt="Vibe Selector selecting a page element"></div></div><div class="copy-card"><span class="copy-icon">✦</span><b class="only-en">Context copied</b><b class="only-zh">定位信息已复制</b><p class="only-en">Pick the next element, or paste this into your coding agent.</p><p class="only-zh">继续选择下一个元素，或直接粘贴给 Coding Agent。</p><span class="copied"><i></i><span class="only-en">Copied to your local clipboard</span><span class="only-zh">已复制到本地剪贴板</span></span></div></div>
         <div class="scroll-note"><i></i><span class="only-en">SELECT · COPY · EDIT</span><span class="only-zh">选择 · 复制 · 修改</span></div>
       </section>
       <div class="line"></div>
       <section class="content">
-        <div class="statement"><h2 class="only-en">Stop describing the UI one sentence at a time.</h2><h2 class="only-zh">不用再反复说“就是这个按钮”。</h2><p class="only-en">Vibe Elector collects the element, where it is, and the context your agent can act on.</p><p class="only-zh">Vibe Elector 会整理元素、它在页面上的位置，以及 Agent 真正用得上的上下文。</p></div>
+          <div class="statement"><h2 class="only-en">Stop describing the UI one sentence at a time.</h2><h2 class="only-zh">不用再反复说“就是这个按钮”。</h2><p class="only-en">Vibe Selector collects the element, where it is, and the context your agent can act on.</p><p class="only-zh">Vibe Selector 会整理元素、它在页面上的位置，以及 Agent 真正用得上的上下文。</p></div>
         <div class="features">
-          <article class="feature"><span class="feature-icon">⌖</span><h3 class="only-en">Pick the element</h3><h3 class="only-zh">点选目标元素</h3><p class="only-en">Click any visible UI element. Vibe Elector prepares a stable selector and a short summary.</p><p class="only-zh">点击任意可见的 UI 元素。Vibe Elector 会准备稳定的 Selector 和简短摘要。</p></article>
+          <article class="feature"><span class="feature-icon">⌖</span><h3 class="only-en">Pick the element</h3><h3 class="only-zh">点选目标元素</h3><p class="only-en">Click any visible UI element. Vibe Selector prepares a stable selector and a short summary.</p><p class="only-zh">点击任意可见的 UI 元素。Vibe Selector 会准备稳定的 Selector 和简短摘要。</p></article>
           <article class="feature"><span class="feature-icon">✦</span><h3 class="only-en">Copy what your agent needs</h3><h3 class="only-zh">复制 Agent 要用的信息</h3><p class="only-en">URL, selector, DOM path, dimensions, and a safe HTML signature. Nothing extra.</p><p class="only-zh">URL、Selector、DOM Path、尺寸和安全的 HTML 签名。该有的都有，不多塞内容。</p></article>
           <article class="feature"><span class="feature-icon">⌁</span><h3 class="only-en">Move on to the next change</h3><h3 class="only-zh">接着处理下一个改动</h3><p class="only-en">After copying, the element unlocks and selection mode stays on.</p><p class="only-zh">复制后元素会自动解锁，选择模式保持开启。</p></article>
         </div>
         <section class="privacy">
-          <div class="privacy-copy"><div class="kicker"><i></i><span class="only-en">Runs locally</span><span class="only-zh">只在本地运行</span></div><h2 class="only-en">Your page data does not leave your browser.</h2><h2 class="only-zh">页面数据不会离开你的浏览器。</h2><p class="only-en">No network requests, telemetry, or selection history. When you copy, Vibe Elector writes the context only to your local clipboard.</p><p class="only-zh">不发起网络请求，不做遥测，也不保存选择历史。你点击复制后，定位信息只会写入本地剪贴板。</p><a class="privacy-link" href="https://github.com/jacl2010/Vibe-Elector/blob/main/PRIVACY.md" target="_blank" rel="noreferrer"><span class="only-en">Read the privacy policy ↗</span><span class="only-zh">阅读隐私政策 ↗</span></a></div>
+          <div class="privacy-copy"><div class="kicker"><i></i><span class="only-en">Runs locally</span><span class="only-zh">只在本地运行</span></div><h2 class="only-en">Your page data does not leave your browser.</h2><h2 class="only-zh">页面数据不会离开你的浏览器。</h2><p class="only-en">No network requests, telemetry, or selection history. When you copy, Vibe Selector writes the context only to your local clipboard.</p><p class="only-zh">不发起网络请求，不做遥测，也不保存选择历史。你点击复制后，定位信息只会写入本地剪贴板。</p><a class="privacy-link" href="https://github.com/jacl2010/Vibe-Selector/blob/main/PRIVACY.md" target="_blank" rel="noreferrer"><span class="only-en">Read the privacy policy ↗</span><span class="only-zh">阅读隐私政策 ↗</span></a></div>
           <div class="privacy-visual"><div class="local-card"><span class="lock">▣</span><b class="only-en">It stays in your browser.</b><b class="only-zh">数据留在你的浏览器里。</b><p class="only-en">The extension does not send page content anywhere.</p><p class="only-zh">扩展不会把页面内容发送出去。</p></div></div>
         </section>
       </section>
     </main>
-    <footer class="footer"><span>© Vibe Elector</span><a href="https://github.com/jacl2010/Vibe-Elector" target="_blank" rel="noreferrer">GitHub ↗</a></footer>
+    <footer class="footer"><span>© Vibe Selector</span><a href="https://github.com/jacl2010/Vibe-Selector" target="_blank" rel="noreferrer">GitHub ↗</a></footer>
   </div>
   <script>
     function setLanguage(language, button) {

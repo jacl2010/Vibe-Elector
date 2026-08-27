@@ -36,7 +36,7 @@ describe("buildSelectionPacket", () => {
     });
     expect(formatSelectionPacket(packet)).toBe(
       [
-        "[Vibe Elector v1]",
+        "[Vibe Selector v1]",
         "URL: http://localhost:3000/checkout",
         "Title: Checkout",
         'Target: button "提交订单"',

@@ -1,6 +1,6 @@
 # Privacy Policy
 
-Vibe Elector processes page information only on the current tab and only after you activate it from the toolbar or a keyboard shortcut.
+Vibe Selector processes page information only on the current tab and only after you activate it from the toolbar or a keyboard shortcut.
 
 The extension does not collect, transmit, sell, share, or persist personal data. It makes no network requests, uses no analytics or telemetry, and does not create a selection history.
 

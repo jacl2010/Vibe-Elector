@@ -15,7 +15,7 @@ export interface ElementRect {
 }
 
 export interface SelectionPacket {
-  version: "Vibe Elector v1";
+  version: "Vibe Selector v1";
   page: PageContext;
   target: {
     summary: string;
