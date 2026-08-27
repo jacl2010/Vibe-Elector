@@ -6,7 +6,7 @@
 
 面向 Coding Agent 的 Firefox 和 Chrome 页面元素选择器。点击页面元素，即可复制一段简洁、稳定、可直接粘贴到 AI 编程对话中的定位信息，减少“我说的到底是哪个按钮”的沟通成本。
 
-**[从 Firefox Add-ons 安装 Vibe Selector](https://addons.mozilla.org/zh-CN/firefox/addon/vibe-elector/)**
+**[从 Firefox Add-ons 安装 Vibe Selector](https://addons.mozilla.org/zh-CN/firefox/addon/vibe-selector/)**
 
 > **浏览器支持**：Firefox 已在 Firefox Add-ons 发布；Chrome 可本地构建并加载，尚未发布至 Chrome Web Store。
 
